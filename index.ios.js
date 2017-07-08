@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import socialize from './app';
+import Socialize from "./App"
 
-AppRegistry.registerComponent('socialize', () => socialize);
+AppRegistry.registerComponent('socialize', () => Socialize);
