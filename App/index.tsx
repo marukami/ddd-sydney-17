@@ -27,6 +27,7 @@ const App = TabNavigator({
 }, {
   tabBarOptions: {
     activeTintColor: "#e91e63",
+    showIcon: true,
   },
   tabBarComponent: TabBarBottom,
   tabBarPosition: "bottom",

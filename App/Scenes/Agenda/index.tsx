@@ -1,6 +1,7 @@
 import * as React from "react";
 import { PureComponent } from "react";
 import { FlatList } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components/native";
 import TalkRow from "../../Components/TalkRow";
 
@@ -27,7 +28,7 @@ class AgendaListRow extends PureComponent<Talk> {
         onPress={this.onPress} />
     );
   }
-  private onPress = (id: string) => this.props.onPressItem(this.props.id)
+  private onPress = (id: string) => this.props.onPressItem(this.props.id);
 }
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -42,7 +43,9 @@ type Props = {
 export class AgendaScreen extends PureComponent<Props> {
   public static navigationOptions = {
     tabBarLabel: "Agenda",
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({tintColor}: {tintColor: string}) => (
+      <Icon name="users" size={18} color={tintColor} />
+    ),
   };
 
   public render() {

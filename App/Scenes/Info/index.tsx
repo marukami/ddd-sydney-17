@@ -2,6 +2,7 @@ import * as React from "react";
 import { Component } from "react";
 import { Text, View } from "react-native";
 import MapView from "react-native-maps";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components/native";
 
 const Container = styled.View`
@@ -13,7 +14,9 @@ const Container = styled.View`
 export class InfoScreen extends Component {
  public static navigationOptions = {
     tabBarLabel: "Info",
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({tintColor}: {tintColor: string}) => (
+      <Icon name="map" size={18} color={tintColor} />
+    ),
   };
 
   public render() {
