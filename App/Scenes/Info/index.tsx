@@ -2,7 +2,7 @@ import * as React from "react";
 import { Component } from "react";
 import { Text, View } from "react-native";
 import MapView from "react-native-maps";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 import styled from "styled-components/native";
 
 const Container = styled.View`
@@ -37,8 +37,12 @@ export class InfoScreen extends Component {
             }}
           />
         </MapView>
-        <View style={{flex: 1}}>
-          <Text>Aaron Powel</Text>
+        <View style={{flex: 1, flexDirection: "row", margin: 16}}>
+          <Icon name="map-o" size={16} style={{marginRight: 8}} />
+          <Text>
+            DDD Sydney will be held at UTS CBD campus, on Level 3 of the Peter
+            Johnson Building, CB06 (entrance via Harris Street).
+          </Text>
         </View>
       </Container>
     );

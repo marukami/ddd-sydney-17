@@ -48,12 +48,13 @@ const imagePlaceholder = "https://pbs.twimg.com/profile_images/66514048050675302
 
 // tslint:disable-next-line:interface-over-type-literal
 export type TalkProps = {
-  time: string,
-  title: string,
-  speaker: string,
-  room: string,
-  avatar: {uri: string},
-  onPress: (id: string) => void,
+  id: string;
+  time: string;
+  title: string;
+  speaker: string;
+  room: string;
+  avatar: {uri: string};
+  onPress: () => void;
 };
 
 const roomView = (props: TalkProps) => {
@@ -74,6 +75,7 @@ export default class TalkRow extends PureComponent<TalkProps> {
 
   public render() {
     return (
+      <TouchableHighlight onPress={this.props.onPress}>
         <Container>
           { roomView(this.props) }
            <ContainerPadding>
@@ -85,6 +87,7 @@ export default class TalkRow extends PureComponent<TalkProps> {
             </TalkInfo>
            </ContainerPadding>
         </Container>
+      </TouchableHighlight>
     );
   }
 }

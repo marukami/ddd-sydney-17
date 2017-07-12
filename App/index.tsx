@@ -7,41 +7,14 @@ import {
   View,
 } from "react-native";
 import MapView from "react-native-maps";
-import { TabBarBottom, TabNavigator } from "react-navigation";
+import { Navigation, StackNavigator, TabBarBottom, TabNavigator } from "react-navigation";
 import styled from "styled-components/native";
 import { data, ITalkData } from "./Data";
 import { AgendaScreen, Talk } from "./Scenes/Agenda";
 import { InfoScreen } from "./Scenes/Info";
+import { TalkScreen } from "./Scenes/Talk";
 
-interface IdedTalkData extends ITalkData {
-  id: string;
-}
-
-const App = TabNavigator({
-  Home: {
-    screen: AgendaScreen,
-  },
-  Notifications: {
-    screen: InfoScreen,
-  },
-}, {
-  tabBarOptions: {
-    activeTintColor: "#e91e63",
-    showIcon: true,
-  },
-  tabBarComponent: TabBarBottom,
-  tabBarPosition: "bottom",
-});
-
-const Root = styled.View`
-  flex: 1;
-  marginTop: ${(Platform.OS === "ios") ? 20 : 0}px;
-`;
-
-export default class Socialize extends Component {
-
-  public render() {
-    const talks = Object.keys(data)
+const talks = Object.keys(data)
     .map((id) => {
       return {
         ...data[id],
@@ -61,18 +34,77 @@ export default class Socialize extends Component {
       }
     });
 
+const Tabs = TabNavigator({
+  Home: {
+    screen: AgendaScreen,
+  },
+  Notifications: {
+    screen: InfoScreen,
+  },
+}, {
+  tabBarOptions: {
+    activeTintColor: "#e91e63",
+    showIcon: true,
+  },
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: "bottom",
+});
+
+type AppScreenProps = {
+  navigation: Navigation;
+};
+
+class AppScreen extends Component<AppScreenProps> {
+  public static navigationOptions = {
+    header: null,
+  };
+
+  public render() {
+    return (<Tabs screenProps={{
+      ...this.props.screenProps,
+      onPressItem: this.onPressItem,
+    }} />);
+  }
+
+  private onPressItem = (id: string) => {
+    const { navigate } = this.props.navigation;
+    console.log(`data at ${id} ${JSON.stringify(data[id], null, 4)}`);
+    return navigate("Talk", {...data[id]});
+  }
+}
+
+interface IdedTalkData extends ITalkData {
+  id: string;
+}
+
+const App = StackNavigator({
+  Home: {
+    screen: AppScreen,
+  },
+  Talk: {
+    screen: TalkScreen,
+  },
+}, {
+  headerMode: "float",
+});
+
+const Root = styled.View`
+  flex: 1;
+  marginTop: ${(Platform.OS === "ios") ? 20 : 0}px;
+`;
+
+// tslint:disable-next-line:max-classes-per-file
+export default class Socialize extends Component {
+
+  public render() {
+
     return (
       <Root>
         <App screenProps={{
           data: talks,
-          onPressItem: this.onPressItem,
         }}/>
       </Root>
     );
-  }
-
-  private onPressItem = (x: string) => {
-    return void 0;
   }
 }
 

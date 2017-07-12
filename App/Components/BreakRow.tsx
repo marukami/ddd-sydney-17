@@ -24,7 +24,6 @@ const imagePlaceholder = "https://pbs.twimg.com/profile_images/66514048050675302
 export type BreakProps = {
     title: string,
     time: string,
-    onPress: (id: string) => void,
 };
 
 export default class TalkRow extends PureComponent<BreakProps> {
