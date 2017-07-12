@@ -1,12 +1,14 @@
 import * as React from "react";
 import { Component } from "react";
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import MapView from "react-native-maps";
-import { TabNavigator } from "react-navigation";
+import { TabBarBottom, TabNavigator } from "react-navigation";
+import styled from "styled-components/native";
 import { data, ITalkData } from "./Data";
 import { AgendaScreen, Talk } from "./Scenes/Agenda";
 import { InfoScreen } from "./Scenes/Info";
@@ -26,7 +28,14 @@ const App = TabNavigator({
   tabBarOptions: {
     activeTintColor: "#e91e63",
   },
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: "bottom",
 });
+
+const Root = styled.View`
+  flex: 1;
+  marginTop: ${(Platform.OS === "ios") ? 20 : 0}px;
+`;
 
 export default class Socialize extends Component {
 
@@ -51,15 +60,12 @@ export default class Socialize extends Component {
     });
 
     return (
+      <Root>
         <App screenProps={{
           data: talks,
           onPressItem: this.onPressItem,
         }}/>
-      // <View style={styles.container}>
-      //   <AgendaScreen
-      //     data={talks}
-      //     onPressItem={this.onPressItem} />
-      // </View>
+      </Root>
     );
   }
 

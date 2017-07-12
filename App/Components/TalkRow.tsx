@@ -37,6 +37,12 @@ const Details = styled.View`
   flexDirection: row;
 `;
 
+const ContainerPadding = styled.View`
+  flexDirection: row;
+  flex: 1;
+  margin: 8px;
+`;
+
 const imagePlaceholder = "https://pbs.twimg.com/profile_images/665140480506753024/83MVBBvq_400x400.jpg";
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -69,12 +75,14 @@ export default class TalkRow extends PureComponent<TalkProps> {
     return (
         <Container>
           { roomView(this.props) }
-          <Avatar source={this.props.avatar} />
-          <TalkInfo>
-            <Title>{this.props.time} - {this.props.title}</Title>
-            <SpeakerName>{this.props.speaker}</SpeakerName>
-            <Text>{this.props.room} Room</Text>
-          </TalkInfo>
+           <ContainerPadding>
+            <Avatar source={this.props.avatar} />
+            <TalkInfo>
+              <Title>{this.props.time} - {this.props.title}</Title>
+              <SpeakerName>{this.props.speaker}</SpeakerName>
+              <Text>{this.props.room} Room</Text>
+            </TalkInfo>
+           </ContainerPadding>
         </Container>
     );
   }
