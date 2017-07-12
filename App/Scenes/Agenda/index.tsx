@@ -3,11 +3,15 @@ import { PureComponent } from "react";
 import { FlatList } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components/native";
+import BreakRow from "../../Components/BreakRow";
 import TalkRow from "../../Components/TalkRow";
+
+type Kinds = "break" | "talk";
 
 // tslint:disable-next-line:interface-over-type-literal
 export type Talk = {
   id: string;
+  kind: Kinds;
   avatar: { uri: string },
   time: string;
   speaker: string;
@@ -16,19 +20,33 @@ export type Talk = {
   onPressItem: (id: string) => void
 };
 
+// tslint:disable-next-line:interface-over-type-literal
+export type Break = {
+  onPressItem: (id: string) => void
+  title: string;
+  time: string;
+  kind: Kinds;
+};
+
 const Container = styled.View`
   flex: 1;
 `;
 
-class AgendaListRow extends PureComponent<Talk> {
+class AgendaListRow extends PureComponent<Talk|Break> {
 
   public render() {
-    return (
-      <TalkRow {...this.props}
-        onPress={this.onPress} />
-    );
+    if (this.props.kind === "talk") {
+      return (
+        <TalkRow {...this.props as Talk}
+          onPress={this.onPress} />
+      );
+    } else {
+      return (
+        <BreakRow {...this.props as Break} />
+      );
+    }
   }
-  private onPress = (id: string) => this.props.onPressItem(this.props.id);
+  private onPress = (id: string) => this.props.onPressItem(id);
 }
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -63,7 +81,7 @@ export class AgendaScreen extends PureComponent<Props> {
 
   private keyExtractor = (item: Talk) => item.id;
 
-  private renderItem = ({item}: {item: Talk}) => {
+  private renderItem = ({item}: {item: Talk | Break}) => {
     return (
       <AgendaListRow
         {...item}
@@ -71,5 +89,4 @@ export class AgendaScreen extends PureComponent<Props> {
       />
     );
   }
-
 }

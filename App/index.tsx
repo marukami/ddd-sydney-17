@@ -48,16 +48,17 @@ export default class Socialize extends Component {
         id,
       } as IdedTalkData;
     })
-    .filter((item) => {
-      return item.kind === "talk";
-    })
     .map((item) => {
-      return {
-        ...item,
-        avatar: { uri: item.speaker.avatar },
-        speaker: item.speaker.name,
-        onPressItem: () => { return; },
-      } as Talk;
+      if (item.kind === "talk") {
+        return {
+          ...item,
+          avatar: { uri: item.speaker.avatar },
+          speaker: item.speaker.name,
+          onPressItem: () => { return; },
+        } as Talk;
+      } else {
+        return {...item};
+      }
     });
 
     return (
