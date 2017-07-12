@@ -6,19 +6,33 @@ import {
   View,
 } from "react-native";
 import MapView from "react-native-maps";
+import { TabNavigator } from "react-navigation";
 import { data, ITalkData } from "./Data";
-import { Agenda, Talk } from "./Scenes/Agenda";
+import { AgendaScreen, Talk } from "./Scenes/Agenda";
+import { InfoScreen } from "./Scenes/Info";
 
 interface IdedTalkData extends ITalkData {
   id: string;
 }
+
+const App = TabNavigator({
+  Home: {
+    screen: AgendaScreen,
+  },
+  Notifications: {
+    screen: InfoScreen,
+  },
+}, {
+  tabBarOptions: {
+    activeTintColor: "#e91e63",
+  },
+});
 
 export default class Socialize extends Component {
 
   public render() {
     const talks = Object.keys(data)
     .map((id) => {
-      console.log(id);
       return {
         ...data[id],
         id,
@@ -37,11 +51,15 @@ export default class Socialize extends Component {
     });
 
     return (
-      <View style={styles.container}>
-        <Agenda
-          data={talks}
-          onPressItem={this.onPressItem} />
-      </View>
+        <App screenProps={{
+          data: talks,
+          onPressItem: this.onPressItem,
+        }}/>
+      // <View style={styles.container}>
+      //   <AgendaScreen
+      //     data={talks}
+      //     onPressItem={this.onPressItem} />
+      // </View>
     );
   }
 

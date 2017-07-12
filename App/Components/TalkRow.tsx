@@ -13,15 +13,13 @@ const Container = styled.View`
   borderColor: gray;
   borderBottomWidth: 0.5px
   flexDirection: row;
-  marginTop: 8px
-  marginLeft: 16px;
 `;
 
 const Avatar = styled.Image`
   width: 42px;
   height: 42px;
   borderRadius: 21px;
-  backgroundColor: gray;
+  backgroundColor: transparent;
   marginRight: 16px;
 `;
 
@@ -51,21 +49,26 @@ export type TalkProps = {
   onPress: (id: string) => void,
 };
 
-// tslint:disable-next-line:interface-over-type-literal
-type State = {};
-
-/*
-time="10:10"
-title="Microservices UI Composition"
-speaker: Hadi Eskandari
-room: Green
-*/
+const roomView = (props: TalkProps) => {
+  const { room } = props;
+  const color = (() => {
+    if (room === "Red") {
+      return "red";
+    } else if (room === "Blue") {
+      return "blue";
+    } else {
+      return "green";
+    }
+  })();
+  return <View style={{backgroundColor: color, width: 8}} />;
+};
 
 export default class TalkRow extends PureComponent<TalkProps> {
 
   public render() {
     return (
         <Container>
+          { roomView(this.props) }
           <Avatar source={this.props.avatar} />
           <TalkInfo>
             <Title>{this.props.time} - {this.props.title}</Title>

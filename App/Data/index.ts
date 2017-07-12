@@ -160,8 +160,7 @@ export const data = {
     summary: "Over the last decade, we have seen many technology trends from monolithic applications to microservices and recently the rise of serverless event driven functions.",
     room: "Red",
     recommendedAudience: "This session level is 200, no prerequisite knowledge requiRed",
-    speaker: [
-      {
+    speaker: {
         name: "Hossam Barakat",
         twitter: " hossambarakat_",
         github: "",
@@ -171,7 +170,6 @@ export const data = {
         summary: "Software Consultant @ Readify",
         website: "",
       },
-    ],
   },
   lunch: {
     kind: "break",
