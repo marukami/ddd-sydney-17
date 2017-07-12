@@ -10,6 +10,7 @@ const TalkInfo = styled.View`
 
 const Container = styled.View`
   height: 80px;
+  backgroundColor: #fff;
   borderColor: gray;
   borderBottomWidth: 0.5px
   flexDirection: row;
