@@ -31,6 +31,7 @@ export class InfoScreen extends Component {
           }}
         >
           <MapView.Marker
+            title="15 Broadway, Ultimo, NSW 2007"
             coordinate={{
                 latitude: -33.883282,
                 longitude: 151.202109,
